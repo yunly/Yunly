@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using OpenQA.Selenium;
+
 namespace Yunly.App.Crawler.Bank.Models
 {
     public class CreditTransaction
@@ -18,6 +20,15 @@ namespace Yunly.App.Crawler.Bank.Models
         public decimal BillingAmmount { get; set; }
 
         public string CardEnding4digits { get; set; }
+
+
+        public static CreditTransaction Parse(IWebElement tr)
+        {
+            
+
+
+            return new CreditTransaction();
+        }
     }
 
 

@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 
 
 using Yunly.Net.SeleniumAPI;
+using Yunly.App.Crawler.Bank.Models;
 
 namespace Yunly.App.Crawler.Bank
 {
