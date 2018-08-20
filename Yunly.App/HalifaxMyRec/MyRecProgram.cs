@@ -18,6 +18,13 @@ namespace Yunly.App.Crawler.HalifaxMyRec
 
         List<RecProgram> recPrograms = new List<RecProgram>();
 
+
+        public void applyProgram(string programCode)
+        {
+
+        }
+
+
         public void updateLocalDb()
         {
 
