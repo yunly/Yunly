@@ -5,7 +5,7 @@ using System.Text;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-
+using OpenQA.Selenium.Chrome;
 
 using Yunly.App.Crawler.Bank.Models;
 
@@ -15,6 +15,10 @@ namespace Yunly.App.Crawler.Bank
     {
         const string LoginUrl = @"https://ibsbjstar.ccb.com.cn/CCBIS/V6/common/login.jsp";
         private string creditUrl;
+
+
+        List<CreditTransaction> transactions = new List<CreditTransaction>();
+
 
         public override void Login()
         {
@@ -64,14 +68,21 @@ namespace Yunly.App.Crawler.Bank
 
         public override List<CreditTransaction> GetCreditTransactions()
         {
-
-            List<CreditTransaction> transactions = new List<CreditTransaction>();
-
             driver.Navigate().GoToUrl(creditUrl);
 
+            getTransaction();
+
+
+            return transactions;
+        }   
+        
+        private void getTransaction()
+        { 
+            
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
 
             var table = wait.Until(d => d.FindElement(By.Id("result5")));
+
 
             foreach (var row in table.FindElements(By.TagName("tr")))
             {
@@ -82,13 +93,29 @@ namespace Yunly.App.Crawler.Bank
                     continue;
 
                 //next page
+                //"page_next"
                 if (tds.Count == 1)
                 {
+                    try
+                    {
+
+                        
+                        var nextPage = tds[0].FindElement(By.ClassName("page_next"));
+                        nextPage.Click();
+                        getTransaction();
+                    }
+                    catch (NoSuchElementException ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
 
                     continue;
                 }
 
-               // transactions.Add(CreditTransaction.Parse(tds));
+                if (tds.Count != 8)
+                    continue;
+
+                transactions.Add(CreditTransaction.Parse(tds));
             }
 
 
@@ -96,7 +123,7 @@ namespace Yunly.App.Crawler.Bank
 
 
 
-            return new List<CreditTransaction>();
+            
         }
 
         private string CreditCardUrl(string userid, string branchid, string skey)
