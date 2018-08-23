@@ -1,0 +1,45 @@
+﻿@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@Model.Message</h3>
+
+
+<address>
+    One Microsoft Way<br />
+    Redmond, WA 98052-6399<br />
+    <abbr title="Phone">P:</abbr>
+    425.555.0100
+</address>
+
+<address>
+    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+</address>
+
+@{
+    var joe = new Person { name = "Joe", age = 21 };
+
+    var persons = new List<Person>()
+    { 
+        new Person{name="Zack", age=30},
+        new Person{name="Marry", age=35},
+        new Person{name="Jack", age=32},        
+    };
+}
+
+<div>
+    <p>Name: @joe.name</p>
+    <p>Age: @joe.age</p>
+</div>
+
+@{
+    foreach(var person in persons)
+    {
+       
+        @: Name: @person.name, Age: @person.age<br />
+    }
+}
+
