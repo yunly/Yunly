@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yunly.Tools
+namespace Yunly.Learning
 {
     public class Class1
     {

@@ -16,21 +16,21 @@ namespace Hercules.RunApp
 
 
 
-            using (StreamReader sr = new StreamReader(@"C:\Users\zhuang\website\French\english.html", true))
-            {
+            //using (StreamReader sr = new StreamReader(@"C:\Users\zhuang\website\French\english.html", true))
+            //{
 
-                var htmlText = sr.ReadToEnd();
-
-
-                result = LanguageTranslator.translateHtmlToFrench(htmlText);
-
-                using (StreamWriter sw = new StreamWriter(@"C:\Users\zhuang\website\French\french.html"))
-                {
-                    sw.Write(result);
-                }
+            //    var htmlText = sr.ReadToEnd();
 
 
-            }
+            //    result = LanguageTranslator.translateHtmlToFrench(htmlText);
+
+            //    using (StreamWriter sw = new StreamWriter(@"C:\Users\zhuang\website\French\french.html"))
+            //    {
+            //        sw.Write(result);
+            //    }
+
+
+            //}
 
 
 
