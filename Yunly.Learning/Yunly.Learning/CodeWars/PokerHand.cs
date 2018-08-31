@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Yunly.Learning.CodeWars
 {
-    public enum Result
+    public enum PokerHand
     {
         Win,
         Loss,
@@ -35,13 +35,13 @@ namespace Yunly.Learning.CodeWars
         public bool IsSameSuite { get; private set; }
         public bool IsSequence { get; private set; }
 
-        public Result CompareWith(PokerHand hand)
+        public PokerHand CompareWith(PokerHand hand)
         {
             var r1 = Ranker.Rank(this);
             var r2 = Ranker.Rank(hand);
-            if (r1 > r2) return Result.Win;
-            if (r1 < r2) return Result.Loss;
-            return Result.Tie;
+            if (r1 > r2) return PokerHand.Win;
+            if (r1 < r2) return PokerHand.Loss;
+            return PokerHand.Tie;
         }
     }
 
