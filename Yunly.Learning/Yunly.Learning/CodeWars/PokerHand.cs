@@ -4,7 +4,34 @@ using System.Collections.Generic;
 
 namespace Yunly.Learning.CodeWars
 {
-    public enum PokerHand
+    /*
+     A famous casino is suddenly faced with a sharp decline of their revenues. They decide to offer Texas hold'em also online. Can you help them by writing an algorithm that can rank poker hands?
+
+Task:
+
+Create a poker hand that has a method to compare itself to another poker hand:
+    Result PokerHand.CompareWith(PokerHand hand);
+A poker hand has a constructor that accepts a string containing 5 cards:
+    PokerHand hand = new PokerHand("KS 2H 5C JD TD");
+The characteristics of the string of cards are:
+A space is used as card seperator
+Each card consists of two characters
+The first character is the value of the card, valid characters are: 
+2, 3, 4, 5, 6, 7, 8, 9, T(en), J(ack), Q(ueen), K(ing), A(ce)
+The second character represents the suit, valid characters are: 
+S(pades), H(earts), D(iamonds), C(lubs)
+
+The result of your poker hand compare can be one of these 3 options:
+    public enum Result 
+    { 
+        Win, 
+        Loss, 
+        Tie 
+    }
+Apply the Texas Hold'em rules for ranking the cards.
+There is no ranking for the suits.
+    */
+    public enum Result
     {
         Win,
         Loss,
@@ -25,8 +52,13 @@ namespace Yunly.Learning.CodeWars
 
             IsSameSuite = Cards.All(x => x.Suite == Cards[0].Suite);
 
+            //check if a array is  sequencial
             IsSequence = Cards.TakeWhile((x, i) => i < 4 && x.Rank == Cards[i + 1].Rank + 1)
                               .Count() == 4;
+            //check if a array is  sequencial
+            IsSequence = Cards.Zip(Cards.Skip(1), (first, second) => first.Rank - 1 == second.Rank).All(x => x);
+
+            
         }
 
         public List<Card> Cards { get; private set; }
@@ -35,13 +67,13 @@ namespace Yunly.Learning.CodeWars
         public bool IsSameSuite { get; private set; }
         public bool IsSequence { get; private set; }
 
-        public PokerHand CompareWith(PokerHand hand)
+        public Result CompareWith(PokerHand hand)
         {
             var r1 = Ranker.Rank(this);
             var r2 = Ranker.Rank(hand);
-            if (r1 > r2) return PokerHand.Win;
-            if (r1 < r2) return PokerHand.Loss;
-            return PokerHand.Tie;
+            if (r1 > r2) return Result.Win;
+            if (r1 < r2) return Result.Loss;
+            return Result.Tie;
         }
     }
 

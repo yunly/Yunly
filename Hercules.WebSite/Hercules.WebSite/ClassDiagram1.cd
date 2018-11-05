@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Hercules.WebSite.HtmlTranslator">
+    <Position X="1.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAgIEAAAAAAAAEQQBAAA=</HashCode>
+      <FileName>HtmlTranslator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hercules.WebSite.LanguageTranslator">
+    <Position X="3.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LanguageTranslator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hercules.WebSite.WordPrss">
+    <Position X="5.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAgAAAAUAIQAACAABAACAAAAIAAAAAAEAA=</HashCode>
+      <FileName>WordPrss.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

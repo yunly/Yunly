@@ -1,0 +1,26 @@
+﻿@model Razor.Models.Product[]
+
+
+@{
+    
+    ViewBag.Title = "Product Name";
+}
+
+
+
+<div>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+            @foreach (Product p in Model)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@($"{p.Price:C2}")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

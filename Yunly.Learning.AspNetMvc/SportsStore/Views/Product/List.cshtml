@@ -1,0 +1,23 @@
+﻿@* @model IEnumerable<Product> *@
+
+
+@model ProductsListViewModel
+
+
+@foreach (var p in Model.Products)
+{
+    //@Html.Partial("ProductSummary", p)
+
+    <partial name="ProductSummary" model="p" />
+
+    
+
+}
+
+<!--When Razor finds the page-model attribute on the div element, it asks the PageLinkTagHelper class to transform the element,
+which produces the set of links-->
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory"
+     class="btn-group pull-right m-1">
+</div>
