@@ -11,8 +11,12 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 
+using Yunly.Learning.DesignPattern.Command;
+
 namespace Yunly.Learning
 {
+    
+
 
     class AsyncNet
     {
@@ -32,26 +36,15 @@ namespace Yunly.Learning
     {
 
      
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now);
+        }
 
-            var url = @"http://apress.com";
-            Console.WriteLine("Open {0}", url);
-            var title = await AsyncNet.getTitleText(url);
-
-            foreach (var head in title)
-            {
-                Console.WriteLine($"{head.Key}:{string.Join(',', head.Value)}");
-            }
-
-
-
-
-
-
-            Console.WriteLine("Press any key to end.");
-            Console.ReadKey();
-        }       
+        static void testCommand()
+        {
+         
+        }
     }
 
   

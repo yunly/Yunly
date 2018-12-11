@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Yunly.Net.SeleniumAPI">
+      <HintPath>..\Yunly.App\bin\Debug\netcoreapp2.1\Yunly.Net.SeleniumAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

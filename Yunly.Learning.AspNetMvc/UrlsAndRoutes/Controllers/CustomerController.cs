@@ -9,6 +9,7 @@ namespace UrlsAndRoutes.Controllers
 {
     public class CustomerController : Controller
     {
+        [Route("myroute")]
         public IActionResult Index() => View("Result",
             new Result
             {
@@ -16,11 +17,17 @@ namespace UrlsAndRoutes.Controllers
                 Action = nameof(Index)
             });
 
-        public IActionResult List() => View("Result",
-            new Result
+        [Route("[controller]/myList")]
+        public ViewResult List(string id)
+        {
+            Result r = new Result
             {
-                Controller = nameof(CustomerController),
-                Action = nameof(List)
-            });
+                Controller = nameof(HomeController),
+                Action = nameof(List),
+            };
+            r.Data["Id"] = id ?? "<no value>";
+            
+            return View("Result", r);
+        }
     }
 }

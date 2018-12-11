@@ -15,21 +15,7 @@ namespace Hercules.RunApp
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Please input English:");
-            string input = Console.ReadLine();
-
-            while (!input.Equals("Exit", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var result = LanguageTranslator.translateToFrench(input);
-                
-                Console.WriteLine(result);
-
-                Console.WriteLine("Please input English:");
-                input = Console.ReadLine();
-            }
-
-            //testExcelApp();
-            //testWordPress();
+            testWordPress();
 
             Console.WriteLine("Press any key to end.");
             Console.ReadKey();               
@@ -37,23 +23,12 @@ namespace Hercules.RunApp
 
         static void testWordPress()
         {
-            var user = @"zhuang@herculesslr.com";
-            var password = @"WbP^ICOCqCHfUeKUh)7oEgZ6";
+            WordPressAutomation automation = new WordPressAutomation();
 
-            WordPrss wordPress = new WordPrss();
+            var english = @"C:\Users\zhuang\website\develop\Catalogue_en.txt";
+            var french = @"C:\Users\zhuang\website\develop\Catalogue_fr.txt";
 
-            wordPress.login(user, password);
-
-            var matchText = @"Questions? Quotes? Catalogue? Call or email: 1 877 461 4876";
-
-            foreach (var page in wordPress.printAllPages(matchText))
-            {
-                Console.WriteLine(page.title);
-                Console.WriteLine(page.url);
-                Console.WriteLine(page.outerHtml);
-                Console.WriteLine("---------------------------\n");
-            }
-
+            automation.compareAllTables(english, french);
 
         }
 

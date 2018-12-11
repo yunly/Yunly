@@ -3,6 +3,7 @@ using Yunly.App.Crawler;
 
 using OpenQA.Selenium;
 
+using Yunly.App.Crawler.HalifaxMyRec;
 
 namespace Yunly.App.Run
 {
@@ -10,26 +11,20 @@ namespace Yunly.App.Run
     {
         static void Main(string[] args)
         {
-            var pageUrl = @"http://www.hetushu.com/book/382/219398.html";
-            var path = @"C:\Users\zhuang\Documents\liuyun.txt";
-
-
-            Book book = new Book()
-            {
-                pageUrl = pageUrl,
-                OutPutPath = path,
-                
-
-            };
-
-            
-
-
-
-            book.start();
+            updateRecDb();
 
             Console.WriteLine("Press any key to end.");
             Console.ReadKey();
         }
+
+
+        private static void updateRecDb()
+        {
+            MyRecProgram rec = new MyRecProgram();
+
+            rec.updateLocalDb();
+        }
+
+
     }
 }

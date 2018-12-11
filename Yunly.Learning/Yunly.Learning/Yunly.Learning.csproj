@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Yunly.Learning.Syntex\Yunly.Learning.Syntex.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DesignPattern\Strategy\" />
+  </ItemGroup>
+
 </Project>

@@ -21,5 +21,14 @@
             <tr><th>@key :</th><td>@Model.Data[key]</td></tr>
         }
     </table>
+    <a asp-route-legacyurl="/articles/Windows_3.1_Overview.html" class="btn btn-primary">
+        This is an outgoing URL
+    </a>
+    <p>
+        URL: @Url.Action(null, null,
+new { legacyurl = "/articles/Windows_3.1_Overview.html" })
+    </p>
+    <a asp-action="Index" asp-controller="Home" asp-route-area="Admin">link</a>
+    <a asp-action="Index" asp-controller="Home" asp-route-area="">link</a>
 </body>
 </html>

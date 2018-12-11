@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HalifaxMyRec\Yunly.App.Crawler.HalifaxMyRec.csproj" />
     <ProjectReference Include="..\Yunly.App\Yunly.App.Crawler.csproj" />
   </ItemGroup>
 

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hercules.RunApp", "Hercules
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hercules.ExportToExcel", "Hercules.ExportToExcel\Hercules.ExportToExcel.csproj", "{D062F632-5838-4D8D-821E-766D39F9F0DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hercules.WebSite.Test", "Hercules.WebSite.Test\Hercules.WebSite.Test.csproj", "{0098AF1A-6616-40FA-97B2-5FD76497FB52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D062F632-5838-4D8D-821E-766D39F9F0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D062F632-5838-4D8D-821E-766D39F9F0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D062F632-5838-4D8D-821E-766D39F9F0DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0098AF1A-6616-40FA-97B2-5FD76497FB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0098AF1A-6616-40FA-97B2-5FD76497FB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0098AF1A-6616-40FA-97B2-5FD76497FB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0098AF1A-6616-40FA-97B2-5FD76497FB52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

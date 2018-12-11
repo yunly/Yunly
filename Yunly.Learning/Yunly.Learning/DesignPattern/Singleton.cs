@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Yunly.Learning.DesignPattern
 {
-    public class Singleton
+    public class Singletons
     {
         private static readonly object objLock = new object();
         

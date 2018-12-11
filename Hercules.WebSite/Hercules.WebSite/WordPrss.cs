@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.RegularExpressions;
 
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
 
 using Yunly.Net.SeleniumAPI;
 
@@ -18,36 +19,95 @@ namespace Hercules.WebSite
         private const string pageUrl = @"http://herculesslr.com/wp-admin/edit.php?post_type=page";
         private const string loginUrl = @"http://www.herculesslr.com/wp-login.php?jetpack-sso-show-default-form=1";
 
+        public const string STATEMENT = "[sc name=\"statement\"]";
+
         HtmlTranslator translator = new HtmlTranslator();
 
-        public WordPrss()
+        WebDriverWait wait;
+
+        public WordPrss(IWebDriver d)
         {
-            driver = SeleniumFactory.createChromeDriver();
+            driver = d;
+            wait = new WebDriverWait(d, TimeSpan.FromMinutes(1));
         }
 
         ~WordPrss()
         {
-            driver.Dispose();            
+            driver.Dispose();
             driver.Quit();
             driver.Close();
         }
 
-
-
+        
         public void login(string username, string password)
         {
             driver.Navigate().GoToUrl(loginUrl);
+            
+
 
             IWebElement loginId = driver.FindElement(By.Id("user_login"));
             IWebElement passwordId = driver.FindElement(By.Id("user_pass"));
-
             IWebElement submitId = driver.FindElement(By.Id("wp-submit"));
+
+            loginId.Clear();
+            passwordId.Clear();
 
             loginId.SendKeys(username);
             passwordId.SendKeys(password);
 
+            
             submitId.Click();
+
+            try
+            {
+                var loginError = wait.Until(d => d.FindElement(By.Id("login_error")));
+                driver.Navigate().GoToUrl(loginUrl);
+
+
+
+                loginId = driver.FindElement(By.Id("user_login"));
+                passwordId = driver.FindElement(By.Id("user_pass"));
+                submitId = driver.FindElement(By.Id("wp-submit"));
+
+                loginId.Clear();
+                passwordId.Clear();
+
+                loginId.SendKeys(username);
+                passwordId.SendKeys(password);
+
+
+                submitId.Click();
+            }
+            catch (NoSuchElementException)
+            {
+                return;
+            }
+
+
+            
+
+            // goto "https://herculesslr.com/wp-admin/index.php"
         }
+
+        /// <summary>
+        /// <li><a href="/?page_id=5989">Aqua Green Superdan Rope</a></li>
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public string GetPageIdFromLink(string url)
+        {
+            string pattern = @"^.+=(\d{4}).+$";
+            var match = Regex.Match(url, pattern);
+
+            return match == null || match.Groups.Count != 2 ? null : match.Groups[1].Value;
+        }
+
+
+        public string BuildUrl(string pageId)
+        {
+            return $"https://herculesslr.com/wp-admin/post.php?post={pageId}&action=edit";
+        }
+
 
         public void translateFrench()
         {
@@ -57,8 +117,91 @@ namespace Hercules.WebSite
             {
                 updatePageText(page.url);
                 //break;
-            }           
+            }
         }
+
+        public string getContentFromUrl(string pageId)
+        {
+            var url = BuildUrl(pageId);
+            driver.Navigate().GoToUrl(url);
+
+            var contentElement = driver.FindElement(By.Id("content"));
+
+            return contentElement.Text;
+        }
+
+
+        public Boolean compareTableId(string htmlEn, string htmlFr)
+        {
+            var documentEn = new HtmlDocument();
+            documentEn.LoadHtml(htmlEn);
+
+            var documentFr = new HtmlDocument();
+            documentFr.LoadHtml(htmlFr);
+
+
+            var tablesEn = documentEn.DocumentNode.SelectNodes("//table");
+            var tablesFr = documentFr.DocumentNode.SelectNodes("//table");
+
+
+            if (tablesEn == null && tablesFr == null) return true;
+
+            if (tablesEn.Count == tablesFr.Count)
+            {
+                for(int i=0;i<tablesEn.Count;i++)
+                {
+                    if (tablesEn[i].Id != tablesFr[i].Id) return false;
+                }
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+
+        public string textAfterAddStatement(string text)
+        {
+            if (text.Contains(STATEMENT)) return text;
+
+            string pattern = @".*(</div>)$";
+                     
+            return Regex.Replace(text, pattern, $"{STATEMENT} </div>");
+        }
+
+        public void addStatements(List<string> pageIds, Action<string> doAction)
+        {
+            foreach (var pageId in pageIds)
+                addStatement(pageId);
+        }
+
+        public void addStatement(string pageId)
+        {
+            var url = BuildUrl(pageId);
+
+            driver.Navigate().GoToUrl(url);
+
+            var contentElement = wait.Until(d => d.FindElement(By.Id("content")));
+
+            var content = textAfterAddStatement(contentElement.Text);
+
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].value = arguments[1];", contentElement, content);
+
+
+            IWebElement submitdiv = driver.FindElement(By.Id("submitdiv"));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].setAttribute('class','postbox');", submitdiv);
+
+            // Save Draft
+            //IWebElement saveElement = driver.FindElement(By.Id("save-post"));
+
+            //Update
+            IWebElement saveElement = driver.FindElement(By.Id("publish"));
+
+            saveElement.Click();
+
+        }
+
 
 
 
@@ -91,7 +234,7 @@ namespace Hercules.WebSite
         #region Private Method
 
 
-  
+       
 
         private void updatePageText(string url)
         {
@@ -101,8 +244,7 @@ namespace Hercules.WebSite
             var contentElement = driver.FindElement(By.Id("content"));
 
             var content = convertToFrench(contentElement.Text);
-
-            
+                        
 
             //Console.WriteLine("=====original:====");
             //Console.WriteLine(contentElement.Text);
