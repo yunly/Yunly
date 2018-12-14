@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Views.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Views
 {
@@ -32,6 +33,8 @@ namespace Views
         {
 //            _logger.LogInformation("Hello world");
 
+
+
             services.AddMvc();
             //services.Configure<MvcViewOptions>(options =>
             //{
@@ -40,7 +43,11 @@ namespace Views
             //        _logger.LogInformation($"---Engine: {engine.ToString()}");
             //});
 
-
+            services.Configure<RazorViewEngineOptions>(options => {
+                options.ViewLocationExpanders.Add(new SimpleExpander());
+                options.ViewLocationExpanders.Add(new ColorExpander());
+            }
+            );
             
         }
 

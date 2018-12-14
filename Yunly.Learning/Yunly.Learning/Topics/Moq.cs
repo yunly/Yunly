@@ -36,5 +36,7 @@ namespace Yunly.Learning.Topics.MoqLearning
         public App(IFoo f) => foo = f;
 
         public bool ping(string ip) => foo.DoSomething(ip);
+
+        public string getString(string ip) => foo.DoSomethingStringy(ip);
     }
 }
