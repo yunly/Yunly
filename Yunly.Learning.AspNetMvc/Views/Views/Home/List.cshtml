@@ -10,9 +10,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var list = $("#list")
+            var list = $("#list");
             //JSON.parse($("#jsonData").text()).forEach(function (val) {console.log("Val: " + val); list.append($("<li>").text(val));});
-            JSON.parse($("#jsonData").text()).forEach(v => list.append($("<li>").text(v)));
+            //JSON.parse($("#jsonData").text()).forEach(v => list.append($("<li>").text(v)));
+
+            $.parseJSON($("#jsonData").text()).forEach(v => list.append("<li>" + v + "</li>"));
         });
     </script>
 
