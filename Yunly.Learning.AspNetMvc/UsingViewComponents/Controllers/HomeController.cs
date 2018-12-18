@@ -18,6 +18,7 @@ namespace UsingViewComponents.Controllers
 
         public IActionResult Index()
         {
+            Response.Headers.Add("Refresh", new Microsoft.Extensions.Primitives.StringValues("5"));
             return View(repository.Products);
         }
 

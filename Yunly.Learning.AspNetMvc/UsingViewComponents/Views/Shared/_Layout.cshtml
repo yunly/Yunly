@@ -13,10 +13,12 @@
                 @*<div class="bg-info text-center m-1 p-1">City Placeholder</div>*@
                 @*@await Component.InvokeAsync("Poco")*@
                 @*@await Component.InvokeAsync(nameof(CitySummary))*@
-                @await Component.InvokeAsync(nameof(CitySummary), new { showList = false })
+                @*@await Component.InvokeAsync(nameof(CitySummary), new { showList = false })*@
+                @await Component.InvokeAsync("ComboComponent")
             </div>
         </div>
     </div>
     <div class="m-1 p-1">@RenderBody()</div>
+    @await Component.InvokeAsync("PageSize")
 </body>
 </html>

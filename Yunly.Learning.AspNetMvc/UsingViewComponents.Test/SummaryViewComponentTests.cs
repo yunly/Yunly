@@ -32,7 +32,7 @@ namespace UsingViewComponents.Test
             //assert
             Assert.IsType<CityViewModel>(result.ViewData.Model);
             Assert.Equal(4, ((CityViewModel)result.ViewData.Model).Cities);
-            Assert.Equal();
+            Assert.Equal(mock.Object.Cities.Sum(c => c.Population), (result.ViewData.Model as CityViewModel).Population);
 
         }
     }
