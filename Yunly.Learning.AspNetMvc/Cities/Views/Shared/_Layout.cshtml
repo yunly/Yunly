@@ -1,11 +1,30 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Cities</title>
+        <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    </head>
+    <body class="m-1 p-1">
+
+        <div show-for-action="Index" class="m-1 p-1 bg-danger">
+            <h2>Important Message</h2>
+        </div>
+
+        <div title="Cities" include-header="true" include-footer="false">@RenderBody()</div>
+    </body>
+    </html>*@
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Cities</title>
     <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="/lib/jquery/jquery.js"></script>
 </head>
 <body class="m-1 p-1">
-    <div title="Cities" include-header="true" include-footer="false">@RenderBody()</div>
+    <div>@RenderBody()</div>
 </body>
 </html>

@@ -1,22 +1,52 @@
-﻿@model City
-@{ Layout = "_Layout"; }
+﻿@*@model City
+    @{ Layout = "_Layout"; }
 
-<form method="post" action="/Home/Create">
+    
+
+<form method="post">
     <div class="form-group">
-        <label for="Name">Name:</label>
-        <input class="form-control" name="Name" />
+        <label helper-for="Name" />
+        <input helper-for="Name" />
     </div>
     <div class="form-group">
-        <label for="Country">Country:</label>
-        <input class="form-control" name="Country" />
+        <label helper-for="Country" />
+        <input helper-for="Country" />
     </div>
     <div class="form-group">
-        <label for="Population">Population:</label>
-        <input class="form-control" name="Population" />
+        <label helper-for="Population" />
+        <input helper-for="Population" />
     </div>
-    @*<button type="submit" class="btn btn-primary">Add</button>*@
-    @*<button type="submit" bs-button-color="danger">Add</button>*@
+    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" bs-button-color="danger">Add</button>
     <formbutton type="submit" bg-color="danger" />
-    <formbutton type="reset" />
-    <a bs-button-color="danger" href="/Home/Index">Cancel</a>
-</form>
+        <formbutton type="reset" />
+        <a bs-button-color="danger" href="/Home/Index">Cancel</a>
+
+    <div theme="info">
+        <button type="submit">Add</button>
+        <button type="reset">Reset</button>
+        <a href="/Home/Index">Cancel</a>
+    </div>
+
+</form>*@
+
+
+@model City
+@{ Layout = "_Layout"; }
+@*<form method="post" action="/Home/Create">*@
+    <form method="post" asp-controller="Home" asp-action="Create" asp-antiforgery="true">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input class="form-control" asp-for="Name" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Country">Country</label>
+            <input class="form-control" asp-for="Country" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Population">Population</label>
+            <input class="form-control"  asp-for="Population" @*asp-format="{0:#,###}"*@ />
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <a class="btn btn-primary" href="/Home/Index">Cancel</a>
+    </form>
