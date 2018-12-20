@@ -28,7 +28,6 @@ namespace Cities.Test
 
             //Assert
             Assert.Equal($"btn btn-{tagHelper.BsButtonColor}", output.Attributes["class"].Value);
-
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Cities.Models
 {
     public class City
     {
-        [Display(Name = "City")]
         public string Name { get; set; }
+        [Display(Name = "City")]
         public string Country { get; set; }
 
         /// <summary>
@@ -17,5 +17,7 @@ namespace Cities.Models
         /// </summary>
         [DisplayFormat(DataFormatString ="{0:F2}", ApplyFormatInEditMode =true)]
         public int? Population { get; set; }
+
+        public string Notes { get; set; }
     }
 }
