@@ -15,36 +15,43 @@ using Yunly.Learning.DesignPattern.Command;
 
 namespace Yunly.Learning
 {
-    
 
-
-    class AsyncNet
+    class GenericClass<T> where T : Comparer<T>
     {
-        public static Task<HttpResponseHeaders> getTitleText(string url)
+        private T item;
+        public GenericClass(T input)
         {
+            item = input;
+        }        
+    }
 
-            var httpClient = new HttpClient();
+    class MyComparer<T> : Comparer<T>
+    {
+        public override int Compare(T x, T y)
+        {
+            if (x.Equals(y)) return 0;
 
-            var httpTask = httpClient.GetAsync(url);
-
-            return httpTask.ContinueWith(response=>response.Result.Headers);          
+            return x.GetHashCode() > y.GetHashCode() ? 1 : -1;
         }
     }
-   
+
+
 
     class Program
     {
-
      
         static void Main(string[] args)
         {
+
+            MyComparer<int> comparer = new MyComparer<int>();
+
+           
+
+            
+
             Console.WriteLine(DateTime.Now);
         }
 
-        static void testCommand()
-        {
-         
-        }
     }
 
   

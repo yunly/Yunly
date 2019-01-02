@@ -10,23 +10,25 @@ namespace Yunly.Learning.Test
         [Fact]
         public void Method_Test()
         {
+
+            //assume
             var mock = new Mock<IFoo>();
 
-            mock.Setup(foo => foo.DoSomething("ip")).Returns(true);
+            //act
 
 
-            string outPutValue = "ack";    
-            mock.Setup(foo => foo.TryParse("ping", out outPutValue)).Returns(true);
 
 
-            var app = new App(mock.Object);
 
 
-            mock.Setup(foo => foo.DoSomething("")).Throws<InvalidOperationException>();
+            //assert
+            mock.SetupSet(foo => foo.Name = "foo");
 
 
-            
-            
+
+
+
+
         }
     }
 }

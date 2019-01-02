@@ -18,19 +18,28 @@
         This is part of the layout
     </div>
 
+
     @if (IsSectionDefined("Footer"))
     {
         @RenderSection("Footer")
     }
     else
     {
+
         <h4>This is the default footer</h4>
     }
 
-    @if (IsSectionDefined("scripts"))
+
+    @if (IsSectionDefined("Script"))
     {
-        @RenderSection("scripts")
+        @RenderSection("Script")
     }
+    else
+    {
+
+        <h4>This is the default Script</h4>
+    }
+
 
     <div class="bg-info">
         This is part of the layout
