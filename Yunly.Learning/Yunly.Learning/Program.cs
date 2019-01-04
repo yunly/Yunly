@@ -7,50 +7,43 @@ using System.Net.Http;
 
 
 
-using System.Linq;
+using System.Text;
 using System;
 using System.Collections.Generic;
 
-using Yunly.Learning.DesignPattern.Command;
+using Yunly.Learning.Syntex;
 
 namespace Yunly.Learning
 {
-
-    class GenericClass<T> where T : Comparer<T>
-    {
-        private T item;
-        public GenericClass(T input)
-        {
-            item = input;
-        }        
-    }
-
-    class MyComparer<T> : Comparer<T>
-    {
-        public override int Compare(T x, T y)
-        {
-            if (x.Equals(y)) return 0;
-
-            return x.GetHashCode() > y.GetHashCode() ? 1 : -1;
-        }
-    }
-
-
 
     class Program
     {
      
         static void Main(string[] args)
         {
+            var list = new YunlyList2(10);
 
-            MyComparer<int> comparer = new MyComparer<int>();
+            list.Add(DateTime.Now.Millisecond);
+            list.Add(DateTime.Now.Millisecond);
+            list.Add(DateTime.Now.Millisecond);
+            list.Add(DateTime.Now.Millisecond);
+            list.Add(DateTime.Now.Millisecond);
 
-           
+          
 
-            
+
 
             Console.WriteLine(DateTime.Now);
+            Console.ReadKey();
         }
+
+
+      
+        static void Greeting(string name, Action<string> localGreet) => localGreet(name);
+
+             
+        static void EnglishGreating(string name) => Console.WriteLine($"Morning, {name}");
+        static void FrenchGreating(string name) => Console.WriteLine($"Bonjour, {name}");
 
     }
 

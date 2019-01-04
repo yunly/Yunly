@@ -17,9 +17,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yunly.WindowsAppCtl", "Yunl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yunly.Learning.Test", "Yunly.Learning.Test\Yunly.Learning.Test.csproj", "{460D4073-E28F-4668-A09F-24FFDCB6E1DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountBook", "AccountBook\AccountBook.csproj", "{CA784A26-B825-4463-B264-BF8712FE4B9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountBook", "AccountBook\AccountBook.csproj", "{CA784A26-B825-4463-B264-BF8712FE4B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountBook.Test", "AccountBook.Test\AccountBook.Test.csproj", "{9C6C54D5-5638-489F-9699-E963B46109CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountBook.Test", "AccountBook.Test\AccountBook.Test.csproj", "{9C6C54D5-5638-489F-9699-E963B46109CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPattern", "DesignPattern\DesignPattern.csproj", "{60A1D133-C5ED-46C6-87CD-2C905D51464E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignPattern.Test", "DesignPattern.Test\DesignPattern.Test.csproj", "{AA86A913-D408-4F43-9DB4-724E0892848F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{9C6C54D5-5638-489F-9699-E963B46109CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C6C54D5-5638-489F-9699-E963B46109CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C6C54D5-5638-489F-9699-E963B46109CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A1D133-C5ED-46C6-87CD-2C905D51464E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A1D133-C5ED-46C6-87CD-2C905D51464E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A1D133-C5ED-46C6-87CD-2C905D51464E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A1D133-C5ED-46C6-87CD-2C905D51464E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA86A913-D408-4F43-9DB4-724E0892848F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA86A913-D408-4F43-9DB4-724E0892848F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA86A913-D408-4F43-9DB4-724E0892848F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA86A913-D408-4F43-9DB4-724E0892848F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
