@@ -218,6 +218,128 @@ namespace Yunly.Learning.Test
             //assert
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(3, "III")]
+        [InlineData(10, "X")]
+        [InlineData(58,"LVIII")]
+        [InlineData(1994,"MCMXCIV")]
+        public void IntToRomanTest(int input, string expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.IntToRoman(input);
+
+            //assert
+            Assert.Equal(expected, result);
+
+        }
+
+        [Theory]
+        [InlineData("III",3)]
+        [InlineData("LVIII", 58)]
+        public void RomanToIntTest(string input, int expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.RomanToInt(input);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("flow", "flight", "fl")]
+        [InlineData("aa", "a", "a")]
+        public void LongestCommonPrefixTest1(string input1, string input2, string expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.LongestCommonPrefix(input1, input2);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new string[] {"flower", "flow", "flight"}, "fl")]
+        public void LongestCommonPrefixTest(string[] input, string expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.LongestCommonPrefix(input);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]        
+        public void ThreeSumTest()
+        {
+            //arrange
+            var input = new int[] { 3, 0, -2, -1, 1, 2,1 };
+            //-2 -1 0 1 2 3
+            var expected = new List<IList<int>>
+            {
+
+                new List<int> {-2,-1,3 },
+                new List<int>{ -2,0,2 },
+                new List<int>{ -2,1,1},
+                new List<int>{ -1,0,1}
+
+            };
+
+            //act
+            var result = solution.ThreeSum1(input);
+
+            //assert
+            Assert.Equal<IList<IList<int>>>(expected, result);
+        }
+
+        [Fact]
+        public void ThreeSumClosestTest()
+        {
+            //arrange
+            var input = new int[] { -1, 2, 1, -4 };
+            var target = 1;
+            var expected = 2;
+
+            //act
+            var result = solution.ThreeSumClosest(input, target);
+
+            //assert
+            Assert.Equal(expected, result);
+
+        }
+
+        [Fact]
+        public void LetterCombinationsTest()
+        {
+            var input = "23";
+            var expected = new List<string> { "ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf" };
+
+
+            var result = solution.LetterCombinations(input);
+
+            Assert.Equal<IList<string>>(expected, result);
+
+        }
+
+        public void FourSumTest()
+        {
+            var input=new List<int> { 1, 0, -1, 0, -2, 2 }
+            var target = 0;
+
+            var expected= new List<IList<int>> {
+                { -1, 0, 0, 1],
+                {-2, -1, 1, 2],
+                {-2, 0, 0, 2]
+            }
+        }
     }
 }
 
