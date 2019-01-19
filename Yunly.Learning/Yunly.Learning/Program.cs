@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 using Yunly.Learning.DesignPattern.Strategy;
@@ -166,16 +167,18 @@ namespace Yunly.Learning
         static void Main(string[] args)
         {
 
-            var a1 = new int[] { 1, 2, 3, 4, 5, 6 };
-            var a2 = new int[] { 6, 7, 8, 9, 10 };
+            var array = new List<string> { "a", "b", "c", "d" };
 
-            var result = a1.Join(a2, a => a, b => b, (a, b) => a + b).Max();
+            var result = array.Aggregate(
+                new List<string>(), 
+                (current, next) => 
+            {
+                current.Add(next);
+                return current;
+            });
 
 
             Console.WriteLine(result);
-
-
-            Console.WriteLine(DateTime.Now);
             Console.ReadKey();
         }
 
