@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System;
-using System.Linq;
+using Yunly.Learning.LeetCode;
 using System.Collections.Generic;
 
 using Yunly.Learning.DesignPattern.Strategy;
@@ -160,25 +160,26 @@ namespace Yunly.Learning
 
         
         
-        
-
-
+       
         
         static void Main(string[] args)
         {
 
-            var array = new List<string> { "a", "b", "c", "d" };
+            int val = int.MaxValue;
 
-            var result = array.Aggregate(
-                new List<string>(), 
-                (current, next) => 
-            {
-                current.Add(next);
-                return current;
-            });
+            Console.WriteLine($"val/2:{val / 2}");
+            Console.WriteLine($"val>>1:{val >> 1}");
+            Console.WriteLine($"val/-2:{val / -2}");
 
 
-            Console.WriteLine(result);
+            Console.WriteLine($"val/3:{val / 3}");
+
+            Console.WriteLine($"val/4:{val / 4}");
+            Console.WriteLine($"val>>2:{val >> 2}");
+
+
+
+            Console.WriteLine(DateTime.Now);
             Console.ReadKey();
         }
 

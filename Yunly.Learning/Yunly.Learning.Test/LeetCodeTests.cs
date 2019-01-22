@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using Yunly.Learning.LeetCode;
+using System.Linq;
 
 namespace Yunly.Learning.Test
 {
@@ -29,19 +30,19 @@ namespace Yunly.Learning.Test
         public void AddTwoNumbersTest(int[] input1, int[] input2, int[] expected)
         {
             //arrange
-            var item1 = new Solution.ListNode(input1[0]);
+            var item1 = new ListNode(input1[0]);
             var item = item1;
             for (var i = 1; i < input1.Length; i++)
             {
-                item.next = new Solution.ListNode(input1[i]);
+                item.next = new ListNode(input1[i]);
                 item = item.next;
             }
 
-            var item2 = new Solution.ListNode(input2[0]);
+            var item2 = new ListNode(input2[0]);
             item = item2;
             for (var i = 1; i < input2.Length; i++)
             {
-                item.next = new Solution.ListNode(input2[i]);
+                item.next = new ListNode(input2[i]);
                 item = item.next;
             }
 
@@ -329,17 +330,213 @@ namespace Yunly.Learning.Test
 
         }
 
+        [Fact]
         public void FourSumTest()
         {
-            var input=new List<int> { 1, 0, -1, 0, -2, 2 }
+            //arrange
+            var input = new int[] { 1, 0, -1, 0, -2, 2 };
             var target = 0;
 
-            var expected= new List<IList<int>> {
-                { -1, 0, 0, 1],
-                {-2, -1, 1, 2],
-                {-2, 0, 0, 2]
-            }
+            var expected = new List<IList<int>> {
+                new List<int> { -1, 0, 0, 1 },
+                new List<int> {-2, -1, 1, 2 },
+                new List<int> {-2, 0, 0, 2 }
+            };
+
+            //act
+            var result = solution.FourSum(input, target);
+
+            //assert
+            Assert.Equal<IList<IList<int>>>(expected, result);
         }
+
+        [Fact]
+        public void RemoveNthFromEndTest()
+        {
+            //arrange
+            var head = new ListNode(1);
+            var current = head;
+            var i = 1;
+            while (i++ < 5)
+            {
+                current.next = new ListNode(i);
+                current = current.next;
+            }
+            int position = 2;
+            int expected = 0;
+
+            //act
+            var result = solution.RemoveNthFromEnd(head, position);
+
+            //assert
+            
+            while (result.next != null)
+            {
+                Assert.Equal(expected++, result.val);
+                result = result.next;
+            }
+
+        }
+
+        [Theory]
+        [InlineData("()", true)]
+        public void IsValid(string input, bool expected)        
+        {
+            //arrange
+
+            //act
+            var result = solution.IsValid(input);
+
+            //assert
+            Assert.Equal(expected, result);
+
+        }
+
+        [Fact]
+        public void MergeTwoListsTest()
+        {
+            ListNode l1 = new ListNode(2);
+
+            ListNode l2 = new ListNode(1);
+
+            var expected = new ListNode(2);
+            l1.next = l2;
+
+            var result = solution.MergeTwoLists(l1, l2);
+
+            Assert.Equal<ListNode>(expected, result);
+        }
+
+        [Fact]
+        public void GenerateParenthesisTest()
+        {
+            //arrange
+            var input = 2;
+            var expected = new List<string> { "()()", "(())" };
+            //arrange
+            var result = solution.GenerateParenthesis(input);
+
+            //assert
+            Assert.Equal<IList<string>>(expected, result);            
+        }
+
+
+        [Fact]
+        public void MergeKListsTest()
+        {
+            //arrange
+            var node1 = new ListNode(1);
+            node1.next = new ListNode(3);
+            node1.next.next = new ListNode(5);
+
+            var node2 = new ListNode(2);
+            node2.next = new ListNode(4);
+            node2.next.next = new ListNode(6);
+
+            var node3 = new ListNode(7);
+            node3.next = new ListNode(8);
+
+
+            var input = new ListNode[] {
+                node1,node2,node3
+            };
+
+            var expected = new ListNode(1);
+
+            //act
+            var result = solution.MergeKLists(input);
+
+            //assert
+            Assert.Equal<ListNode>(result, expected);
+
+        }
+
+
+        [Fact]
+        public void SwapPairs()
+        {
+            //arrange            
+            var node1 = new ListNode(1);
+            node1.next = new ListNode(3);
+            node1.next.next = new ListNode(5);
+            node1.next.next.next = new ListNode(7);
+
+            var expected = node1;
+
+            //act
+            var result = solution.SwapPairs(node1);
+
+            //assert
+            Assert.Equal<ListNode>(expected, result);
+        }
+
+        [Fact]
+        public void ReverseKGroupTest()
+        {
+            //arrange
+            var node1 = new ListNode(1);
+            node1.next = new ListNode(2);
+            node1.next.next = new ListNode(3);
+            node1.next.next.next = new ListNode(4);
+            node1.next.next.next.next = new ListNode(5);
+
+            var expected = node1;
+            var k = 3;
+
+            //act
+            var result = solution.ReverseKGroup(node1, k);
+
+            //assert
+            Assert.Equal<ListNode>(expected, result);
+        }
+
+
+        [Theory]
+        [InlineData(new int[] {1,1,2}, 2, new int[] {1,2 })]
+        public void RemoveDuplicatesTest(int[] input, int expected, int[] expected1)
+        {
+            //arrange
+
+            //act
+            var result = solution.RemoveDuplicates(input);
+
+            //assert
+            Assert.Equal(expected, result);
+            Assert.Equal<int[]>(expected1, input.Take(expected1.Length).ToArray());
+        }
+
+
+        [Theory]
+        [InlineData(new int[] { 3, 2, 2, 3 }, 3, 2, new int[] { 2, 2 })]
+        [InlineData(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5, new int[] { 0,1,3,0,4 })]
+        [InlineData(new int[] { 3,3 }, 5, 2, new int[] { 3,3 })]
+        public void RemoveElementTest(int[] input, int val, int expected1, int[] expected2)
+        {
+            //arrange
+
+            //act
+            var result = solution.RemoveElement(input, val);
+
+            //assert
+            Assert.Equal(expected1, result);
+            Assert.Equal<int[]>(expected2, input.Take(expected2.Length).ToArray());
+
+        }
+
+        [Theory]
+        [InlineData(-2147483648,2, -2147483648/2)]        
+        public void DivideTest(int dividend, int divisor, int expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.Divide(dividend, divisor);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+
     }
 }
 
