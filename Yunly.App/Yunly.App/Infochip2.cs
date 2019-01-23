@@ -4,6 +4,7 @@ using System.Text;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support;
+using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 
 using Yunly.Net.SeleniumAPI;
@@ -57,99 +58,139 @@ namespace Yunly.App.Crawler
 
         public void loadData()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
+                        
             driver.Navigate().GoToUrl(url);
 
-            
-            
-
+            ///ctl00_PageContentPlaceHolder_ui_attributesGridViewToolBar_ui_pageLabel
+            ///(Page 2 of 108)
+            var page = 1;
+            var totalPage = 108;
+            string pageString = "";
+            var retries = 2;
             while (true)
             {
-                var table = wait.Until(d => d.FindElement(By.Id("ctl00_PageContentPlaceHolder_attributesGridView")));
-
-               
-
-                var result = loadTable(table);
-
-                TotalResult.AddRange(result);
+                pageString = $"(Page {page} of {totalPage})";
 
 
-
-
-
-                var next = wait.Until(d => d.FindElement(By.Id("ctl00_PageContentPlaceHolder_ui_attributesGridViewToolBar_ui_nextBtn_jQueryButtonUpdatePanel")));
-
-                var retries = 2;
-                Boolean isEnd = false;
-                while (retries-- >= 0)
+                wait.Until(d =>
                 {
                     try
                     {
-                        var hasNext = next.GetAttribute("disabled");
-                        if (hasNext == "disabled")
-                        {
-                            isEnd = true;
-                            
-                        }
-                        break;
+                        return d.FindElement(By.Id("ctl00_PageContentPlaceHolder_ui_attributesGridViewToolBar_ui_pageLabel")).Text == pageString;
                     }
-                    catch (StaleElementReferenceException) { Console.WriteLine("Next.GetAttribute disabled failed."); }
-                }
+                    catch (StaleElementReferenceException)
+                    {
+                        Console.WriteLine("Retry read page text.");
+                        return false;
+                    }
+                });
+ 
 
-                if (isEnd) break;
+
+                var trs = wait.Until(d => d.FindElements(By.CssSelector("#ctl00_PageContentPlaceHolder_attributesGridView tr")));
+
+                //wait.Timeout = TimeSpan.FromSeconds(1);
+                //wait.Until(d => d.FindElement(By.Id("")));
+
+                Console.WriteLine(pageString);
+                for (var i = 1; i < trs.Count; i++)
+                {
+                    var tds = trs[i].FindElements(By.TagName("td"));
+
+                    List<string> line = new List<string>();
+                    foreach (var td in tds)
+                    {
+                        line.Add(td.Text);
+                    }
+
+                    TotalResult.Add(line);
+                }
+                Console.WriteLine($"read {trs.Count - 1} lines");
+                //var result = loadTable(table);
+
+                //TotalResult.AddRange(result);
+
+
+                if (page++ >= totalPage) break;
+
+                Console.Write($"Turn to page {page}");
+
 
                 retries = 2;
-               
                 while (retries-- >= 0)
                 {
 
                     try
                     {
-                        next.FindElement(By.TagName("span")).Click();
-                        
+                        wait.Until(d => d.FindElement(By.CssSelector("#ctl00_PageContentPlaceHolder_ui_attributesGridViewToolBar_ui_nextBtn_jQueryButtonUpdatePanel span"))).Click();                        
                         break;
                     }
                     catch (StaleElementReferenceException) { Console.WriteLine("click next failed."); }
-
                 }
 
                 
             }
         }
 
-        public List<List<string>> loadTable(IWebElement table)
+        public List<List<string>> loadTable(IWebElement tbody)
         {
             
             var result = new List<List<string>>();
 
 
-            var retries = 5;
+            var retries = 2;
 
-            IWebElement tbody = null;
+            //IWebElement tbody = null;
+
+            //while (retries-- >= 0)
+            //{
+            //    try
+            //    {
+            //        tbody = table.FindElement(By.TagName("tbody"));
+            //        break;
+            //    }
+            //    catch (NoSuchElementException ex)
+            //    {
+            //        Console.WriteLine("Can't find tbody tag.");
+            //    }
+            //    catch (StaleElementReferenceException)
+            //    { Console.WriteLine("Can't find tbody tag. staleelement error."); }
+            //}
+
+
+            IReadOnlyCollection<IWebElement> trs = null;
+
+            retries = 2;
 
             while (retries-- >= 0)
             {
                 try
                 {
-                    tbody = table.FindElement(By.TagName("tbody"));
+                    trs = tbody.FindElements(By.TagName("tr"));
                     break;
                 }
-                catch (NoSuchElementException ex)
-                {
-                    Console.WriteLine("Can't find tbody tag.");
-                }
-                catch (StaleElementReferenceException)
-                { Console.WriteLine("Can't find tbody tag. staleelement error."); }
+                catch (StaleElementReferenceException) { }
             }
 
-
-            var trs = tbody.FindElements(By.TagName("tr"));
+            
 
             foreach (var tr in trs)
             {
                 var line = new List<string>();
 
-                var tds = tr.FindElements(By.TagName("td"));
+                IReadOnlyCollection<IWebElement> tds = null;
+
+                retries = 2;
+                while (retries-- >= 0)
+                {
+                    try
+                    {
+                        tds = tr.FindElements(By.TagName("td"));
+                        break;
+                    }
+                    catch (StaleElementReferenceException) { }
+                }
 
                 if (tds == null) continue;
 

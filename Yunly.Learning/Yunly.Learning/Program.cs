@@ -159,25 +159,22 @@ namespace Yunly.Learning
 
 
         
-        
-       
-        
+                   
         static void Main(string[] args)
         {
+            var dict = new Dictionary<int, string>
+            {
+                {1,"a" },{2,"b"},{3,"a"}
+            };
 
-            int val = int.MaxValue;
+            foreach (var item in dict)
+                Console.WriteLine($"key:{item.Key}, value:{item.Value}");   
 
-            Console.WriteLine($"val/2:{val / 2}");
-            Console.WriteLine($"val>>1:{val >> 1}");
-            Console.WriteLine($"val/-2:{val / -2}");
-
-
-            Console.WriteLine($"val/3:{val / 3}");
-
-            Console.WriteLine($"val/4:{val / 4}");
-            Console.WriteLine($"val>>2:{val >> 2}");
+            
 
 
+
+      
 
             Console.WriteLine(DateTime.Now);
             Console.ReadKey();

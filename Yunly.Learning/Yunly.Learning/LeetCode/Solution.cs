@@ -1475,8 +1475,115 @@ namespace Yunly.Learning.LeetCode
         }
 
 
+        /// <summary>
+        /// 30. Substring with Concatenation of All Words
+        /// https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        public IList<int> FindSubstring(string s, string[] words)
+        {
+            var result = new List<int>();
+
+            if (s == null || words == null || words.Length == 0 ||
+                s.Length < words[0].Length * words.Length
+                ) return result;
 
 
+            var dict = new Dictionary<string, int>();
+
+            foreach (var word in words)
+            {
+                if (dict.ContainsKey(word)) dict[word]++;
+                else dict[word] = 1;
+            }
+
+            var wordLength = words[0].Length;
+            var totalLength = words[0].Length * words.Length;
+
+
+            for (var i = 0; i <= s.Length - totalLength; i++)
+            {
+                var target = new Dictionary<string, int>();
+                for (var j = 0; j < words.Length; j++)
+                {
+                    var temp = s.Substring(i + j * wordLength, wordLength);
+                    if (target.ContainsKey(temp)) target[temp]++;
+                    else target[temp] = 1;
+                }
+
+                if (target.Count == dict.Count)
+                {
+                    Boolean isSame = true;
+                    foreach (var item in target)
+                    {
+                        if (!dict.ContainsKey(item.Key) || (dict[item.Key] != item.Value))
+                            isSame = false;
+                    }
+
+                    if (isSame) result.Add(i);
+                }
+            }
+
+
+
+            return result;
+
+            //var result = new List<int>();
+
+            //if (s == null || words == null || words.Length == 0 ||
+            //    s.Length < words[0].Length * words.Length
+            //    ) return result;
+
+            //var totalLength = words[0].Length * words.Length;
+
+            //for (var i = 0; i <= s.Length - totalLength; i++)
+            //{
+            //    var temp = s.Substring(i, totalLength);
+
+            //    foreach (var word in words)
+            //    {
+            //        for (var j = 0; j <= temp.Length - words[0].Length; j += words[0].Length)
+            //        {
+            //            if (temp.IndexOf(word, j) == j)
+            //            {
+            //                temp = temp.Remove(j, words[0].Length);
+            //                break;
+            //            }
+            //        }
+            //    }
+
+            //    if (temp == "") result.Add(i);
+            //}
+
+
+            //return result;
+
+
+        }
+
+
+        /// <summary>
+        /// 31. Next Permutation
+        /// https://leetcode.com/problems/next-permutation/
+        /// </summary>
+        /// <param name="nums"></param>
+        public void NextPermutation(int[] nums)
+        {
+            if (nums == null || nums.Length <= 1) return;
+
+            Boolean isChanged = false;
+            for (var i = nums.Length - 1; i > 0; i--)
+                if (nums[i] > nums[i - 1])
+                {
+                    (nums[i], nums[i - 1]) = (nums[i - 1], nums[i]);
+                    isChanged = true;
+                    break;
+                }
+
+            if (!isChanged) Array.Sort(nums);
+        }
 
     }
 

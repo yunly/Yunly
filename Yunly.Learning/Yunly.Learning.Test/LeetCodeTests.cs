@@ -537,6 +537,32 @@ namespace Yunly.Learning.Test
         }
 
 
+        [Theory]
+        [InlineData("askrnjtapxodiovimfcvfnouluznhhyjzjcmuvojudpdtknfprawfqrqksgszgbypemkbbvwgkbzxogmiglnwcfgunatuctjihvjktfqdgrcxzpffaudebmapmtjqouaxskilraqautztkebkaeqbqqqflbvbwwyqigbzjrbdkawugzgieykwocbzgxactzubhvcqogvbguxptexxchutmvssuvwpwqsflvwzbtajnyyhewgifadrywluthkpxcukzsmcmombomiuipforihrgtmzcwqcanmahactrqxhdfclwhborlhygvxirqkudzumbyispfaskefhnjxeugcacckvuvpzwllxktsbyuvjyasllrrhxuhbyuxsrmrnacmkyenwyihykzjwsddqxnrxhqrydindmzpkgchemqfwqqsktyaqnupwkgupqjudilpqpyvbpayhqsrksucfqubcaxurgqwrcnhtoevdgvmzpdlizpnpjrskomdxcbogqxaecxjisxhhburakfstykfmykjcnzjexjkzgwjatthunzxxgrredysbjcdwdmcaxnbfjlfegpbtoarwrkauisxrwaqapscoheusrzxxoyqeyjartcnexkvvknxbiaqpgkkxlhuchmghwjarnnvkxrijgflofdenpqkaxgcgtlppupgjccubvekdjxsrayepopsnvwvqjkffbopfslgppssyqkpskwkyncliagbksiptwgyqrgfgzahrmyjxutxhxlsartmmbdfakgsboakpargorsnmnlvlwnnpizbmcjoopgqdgctivbxmtkyhvwutlhjuimikvwzkcrqlvltqoqeidfrablumuficrqonopztiredexvtqadthuvihrwdwffqvvdmnefvwjbaiyvyaythsrpbimeftlvqjacwehtcsufbtabvzxdtouxwibdbpasycwujennwksxftbauyfpoammkqqofsgdvezgiothamefhhidfpsvrhicxaqcsyhpcivnwruzdaemioppejlvqtzntprnpydugahfrbewbkkjbzb", 
+            new string[] { "xactzubhvcqogvbguxptexxchutmv", "hborlhygvxirqkudzumbyispfaske", "uisxrwaqapscoheusrzxxoyqeyjar", "ppupgjccubvekdjxsrayepopsnvwv", "jarnnvkxrijgflofdenpqkaxgcgtl", "cbogqxaecxjisxhhburakfstykfmy", "agbksiptwgyqrgfgzahrmyjxutxhx", "fhnjxeugcacckvuvpzwllxktsbyuv", "rcnhtoevdgvmzpdlizpnpjrskomdx", "kjcnzjexjkzgwjatthunzxxgrredy", "tcnexkvvknxbiaqpgkkxlhuchmghw", "sbjcdwdmcaxnbfjlfegpbtoarwrka", "qjkffbopfslgppssyqkpskwkyncli", "pqpyvbpayhqsrksucfqubcaxurgqw", "yihykzjwsddqxnrxhqrydindmzpkg", "jyasllrrhxuhbyuxsrmrnacmkyenw", "chemqfwqqsktyaqnupwkgupqjudil", "vlwnnpizbmcjoopgqdgctivbxmtky", "rihrgtmzcwqcanmahactrqxhdfclw", "ssuvwpwqsflvwzbtajnyyhewgifad", "lsartmmbdfakgsboakpargorsnmnl", "rywluthkpxcukzsmcmombomiuipfo", "hvwutlhjuimikvwzkcrqlvltqoqei" }, 
+            new int[]{186 })]
+        public void FindSubstringTest(string s, string[] words, int[] expected)
+        {
+            //act
+            var result = solution.FindSubstring(s, words);
+
+            //assert
+            Assert.Equal<int[]>(expected, result.ToArray());
+        }
+
+        [Theory]
+        [InlineData(new int[] {1,2,3 }, new int[] {1,3,2 })]
+        public void NextPermutationTest(int[] input, int[] expected)
+        {
+            //arrange
+
+            //act
+            solution.NextPermutation(input);
+
+            //assert
+            Assert.Equal<int[]>(expected, input);
+        }
+
     }
 }
 
