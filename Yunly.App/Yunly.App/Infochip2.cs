@@ -60,28 +60,58 @@ namespace Yunly.App.Crawler
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             driver.Navigate().GoToUrl(url);
 
+            
+            
 
             while (true)
             {
                 var table = wait.Until(d => d.FindElement(By.Id("ctl00_PageContentPlaceHolder_attributesGridView")));
 
-                wait.Until(d => d.FindElement(By.Id("ICOFooter")));
+               
 
                 var result = loadTable(table);
-
-                while (result == null)
-                    result = loadTable(table);
 
                 TotalResult.AddRange(result);
 
 
+
+
+
                 var next = wait.Until(d => d.FindElement(By.Id("ctl00_PageContentPlaceHolder_ui_attributesGridViewToolBar_ui_nextBtn_jQueryButtonUpdatePanel")));
 
-                if (next.GetAttribute("disabled") == "disabled")
-                    break;
+                var retries = 2;
+                Boolean isEnd = false;
+                while (retries-- >= 0)
+                {
+                    try
+                    {
+                        var hasNext = next.GetAttribute("disabled");
+                        if (hasNext == "disabled")
+                        {
+                            isEnd = true;
+                            
+                        }
+                        break;
+                    }
+                    catch (StaleElementReferenceException) { Console.WriteLine("Next.GetAttribute disabled failed."); }
+                }
 
+                if (isEnd) break;
 
-                next.FindElement(By.TagName("span")).Click();
+                retries = 2;
+               
+                while (retries-- >= 0)
+                {
+
+                    try
+                    {
+                        next.FindElement(By.TagName("span")).Click();
+                        
+                        break;
+                    }
+                    catch (StaleElementReferenceException) { Console.WriteLine("click next failed."); }
+
+                }
 
                 
             }
@@ -91,31 +121,56 @@ namespace Yunly.App.Crawler
         {
             
             var result = new List<List<string>>();
-            try
+
+
+            var retries = 5;
+
+            IWebElement tbody = null;
+
+            while (retries-- >= 0)
             {
-                var trs = table.FindElement(By.TagName("tbody")).FindElements(By.TagName("tr"));
+                try
+                {
+                    tbody = table.FindElement(By.TagName("tbody"));
+                    break;
+                }
+                catch (NoSuchElementException ex)
+                {
+                    Console.WriteLine("Can't find tbody tag.");
+                }
+                catch (StaleElementReferenceException)
+                { Console.WriteLine("Can't find tbody tag. staleelement error."); }
+            }
+
+
+            var trs = tbody.FindElements(By.TagName("tr"));
 
             foreach (var tr in trs)
             {
                 var line = new List<string>();
 
-        
-                    var tds = tr.FindElements(By.TagName("td"));
+                var tds = tr.FindElements(By.TagName("td"));
 
-                    foreach (var td in tds)
+                if (tds == null) continue;
+
+                foreach (var td in tds)
+                {
+                    retries = 2;
+                    while (retries-- >= 0)
                     {
-                        if (td == null) continue;
-                        line.Add(td.Text);
+                        try
+                        {
+                            line.Add(td.Text);
+                            break;
+                        }
+                        catch (StaleElementReferenceException) { Console.WriteLine("Can't read td text."); }
                     }
-                    result.Add(line);
-             
-        
+                }
+
+                result.Add(line);
             }
-    }
-            catch (Exception ex)
-            {
-                return null;
-            }
+
+            
             return result;
         }
     }
