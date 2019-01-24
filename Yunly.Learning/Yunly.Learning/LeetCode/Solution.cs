@@ -1573,16 +1573,58 @@ namespace Yunly.Learning.LeetCode
         {
             if (nums == null || nums.Length <= 1) return;
 
-            Boolean isChanged = false;
-            for (var i = nums.Length - 1; i > 0; i--)
-                if (nums[i] > nums[i - 1])
+            var i = nums.Length - 2;
+            while (i >= 0 && nums[i + 1] <= nums[i])
+                i--;
+
+            if (i >= 0)
+            {
+                var j = nums.Length - 1;
+
+                while (j >= 0 && nums[j] <= nums[i]) j--;
+
+                (nums[i], nums[j]) = (nums[j], nums[i]);
+            }
+
+            var m = i + 1;
+            var n = nums.Length - 1;
+            while (m < n)
+            {
+                (nums[m], nums[n]) = (nums[n], nums[m]);
+                m++;n--;
+            }
+        }
+
+
+        /// <summary>
+        /// 32. Longest Valid Parentheses
+        /// https://leetcode.com/problems/longest-valid-parentheses/
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public int LongestValidParentheses(string s)
+        {
+            var stack = new Stack<char>();
+
+            int count = 0;
+            foreach (var ch in s)
+            {
+                if (stack.Count == 0)
                 {
-                    (nums[i], nums[i - 1]) = (nums[i - 1], nums[i]);
-                    isChanged = true;
-                    break;
+                    stack.Push(ch);
+                    continue;
                 }
 
-            if (!isChanged) Array.Sort(nums);
+                if (ch == '(') stack.Push(ch);
+
+                if (ch == ')' && stack.Peek() == '(')
+                {
+                    stack.Pop();
+                    count++;
+                }
+            }
+
+            return count * 2;
         }
 
     }

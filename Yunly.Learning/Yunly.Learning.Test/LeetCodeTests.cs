@@ -551,7 +551,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new int[] {1,2,3 }, new int[] {1,3,2 })]
+        [InlineData(new int[] {1,3,2 }, new int[] {2,1,3 })]
         public void NextPermutationTest(int[] input, int[] expected)
         {
             //arrange
@@ -563,6 +563,19 @@ namespace Yunly.Learning.Test
             Assert.Equal<int[]>(expected, input);
         }
 
+        [Theory]
+        [InlineData("(()", 2)]
+        [InlineData(")()())",4)]
+        public void LongestValidParenthesesTest(string input, int expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.LongestValidParentheses(input);
+
+            //
+            Assert.Equal(expected, result);
+        }
     }
 }
 
