@@ -162,17 +162,12 @@ namespace Yunly.Learning
                    
         static void Main(string[] args)
         {
-            var dict = new Dictionary<int, string>
-            {
-                {1,"a" },{2,"b"},{3,"a"}
-            };
+            var s = ")))))()(((((";
 
-            foreach (var item in dict)
-                Console.WriteLine($"key:{item.Key}, value:{item.Value}");   
-
-            
+            var result = s.TrimStart(')').TrimEnd('(');
 
 
+            Console.WriteLine(result);
 
       
 

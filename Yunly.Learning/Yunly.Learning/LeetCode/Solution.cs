@@ -1604,29 +1604,131 @@ namespace Yunly.Learning.LeetCode
         /// <returns></returns>
         public int LongestValidParentheses(string s)
         {
-            var stack = new Stack<char>();
+            if (string.IsNullOrEmpty(s)) return 0;
 
-            int count = 0;
-            foreach (var ch in s)
+            int max = 0;
+
+            var stack = new Stack<int>();
+            stack.Push(-1);
+
+            for (var i = 0; i < s.Length; i++)
             {
-                if (stack.Count == 0)
-                {
-                    stack.Push(ch);
-                    continue;
-                }
-
-                if (ch == '(') stack.Push(ch);
-
-                if (ch == ')' && stack.Peek() == '(')
+                if (s[i] == '(')
+                    stack.Push(i);
+                else
                 {
                     stack.Pop();
-                    count++;
+                    if (stack.Count == 0)
+                        stack.Push(i);
+                    else
+                        max = Math.Max(max, i - stack.Peek());
                 }
             }
 
-            return count * 2;
+            return max;          
         }
 
+        /// <summary>
+        /// 33. Search in Rotated Sorted Array
+        /// https://leetcode.com/problems/search-in-rotated-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int Search(int[] nums, int target)
+        {
+            if (nums == null || nums.Length == 0) return -1;
+
+            //var left = 0;
+            //var right = nums.Length - 1;
+            //var index = 0;
+            //while (left < right)
+            //{
+            //    var middle = (left + right) / 2;
+
+            //    if (nums[middle] > nums[middle + 1])
+            //    {
+            //        index = middle + 1;
+            //        break;
+            //    }
+
+            //    if (nums[middle] < nums[left])
+            //        right = middle - 1;
+            //    else
+            //        left = middle + 1;                        
+            //}
+
+
+
+
+
+            if (target >= nums[0])
+            {
+                for (var i = 0; i < nums.Length; i++)
+                    if (nums[i] == target) return i;
+            }
+            else
+            {
+                if (target <= nums[nums.Length - 1])
+                {
+                    for (var i = nums.Length - 1; i >= 0; i--)
+                        if (nums[i] == target) return i;
+                }             
+            }
+
+            return -1;
+        }
+
+
+        /// <summary>
+        /// 34. Find First and Last Position of Element in Sorted Array
+        /// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int[] SearchRange(int[] nums, int target)
+        {            
+
+
+            if (nums == null || nums.Length == 0) return new int[] { -1, -1 };
+          
+            if (nums.Length == 1)
+            {
+                return nums[0] == target ? new int[] { 0, 0 } : new int[] { -1, -1 };
+            }
+
+            var left = 0;
+            var right = nums.Length - 1;
+
+            while (left < right)
+            {
+                var middle = (left + right) / 2;
+
+                if (target == nums[middle])
+                {
+                    if (middle-1>=0  && nums[middle - 1] == target) return new int[] { middle - 1, middle };
+
+                    if (middle + 1 < nums.Length && nums[middle + 1] == target) return new int[] { middle, middle + 1 };
+
+                    return new int[] { middle, middle };
+                }
+
+                if (target > nums[middle])
+                {
+                    left = middle + 1;
+                }
+                else
+                {
+                    right = middle - 1;
+                }
+            }
+
+
+            return new int[] { -1, -1 };
+
+
+        }
     }
 
 

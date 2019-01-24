@@ -26,7 +26,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new int[] { 1 }, new int[] { 9,9 }, new int[] { 0,0,1 })]
+        [InlineData(new int[] { 1 }, new int[] { 9, 9 }, new int[] { 0, 0, 1 })]
         public void AddTwoNumbersTest(int[] input1, int[] input2, int[] expected)
         {
             //arrange
@@ -72,8 +72,8 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new int[] { 1,3}, new int[] { 2}, 2.0),]
-        [InlineData(new int[] { 1, 2 }, new int[] { 3,4 }, 2.5),]
+        [InlineData(new int[] { 1, 3 }, new int[] { 2 }, 2.0),]
+        [InlineData(new int[] { 1, 2 }, new int[] { 3, 4 }, 2.5),]
         public void FindMedianSortedArrays(int[] input1, int[] input2, double expected)
         {
             //arrange
@@ -129,7 +129,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new char[] {'a',' ','b',' ',' ','c' },"abc")            ]
+        [InlineData(new char[] { 'a', ' ', 'b', ' ', ' ', 'c' }, "abc")]
         public void array2StringWithoutBlankTest(char[] input, string expected)
         {
             //arrange
@@ -148,8 +148,8 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(123,321)]
-        [InlineData(1534236469,0)]
+        [InlineData(123, 321)]
+        [InlineData(1534236469, 0)]
         public void ReverseTest(int input, int expected)
         {
             //arrange
@@ -195,7 +195,7 @@ namespace Yunly.Learning.Test
 
         [Theory]
         [InlineData("aa", "a*", true)]
-        [InlineData("mississippi","mis*is*p*.", false)]
+        [InlineData("mississippi", "mis*is*p*.", false)]
         public void IsMatchTest(string input, string pattern, bool expected)
         {
             //arrange
@@ -223,8 +223,8 @@ namespace Yunly.Learning.Test
         [Theory]
         [InlineData(3, "III")]
         [InlineData(10, "X")]
-        [InlineData(58,"LVIII")]
-        [InlineData(1994,"MCMXCIV")]
+        [InlineData(58, "LVIII")]
+        [InlineData(1994, "MCMXCIV")]
         public void IntToRomanTest(int input, string expected)
         {
             //arrange
@@ -238,7 +238,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData("III",3)]
+        [InlineData("III", 3)]
         [InlineData("LVIII", 58)]
         public void RomanToIntTest(string input, int expected)
         {
@@ -266,7 +266,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new string[] {"flower", "flow", "flight"}, "fl")]
+        [InlineData(new string[] { "flower", "flow", "flight" }, "fl")]
         public void LongestCommonPrefixTest(string[] input, string expected)
         {
             //arrange
@@ -278,11 +278,11 @@ namespace Yunly.Learning.Test
             Assert.Equal(expected, result);
         }
 
-        [Fact]        
+        [Fact]
         public void ThreeSumTest()
         {
             //arrange
-            var input = new int[] { 3, 0, -2, -1, 1, 2,1 };
+            var input = new int[] { 3, 0, -2, -1, 1, 2, 1 };
             //-2 -1 0 1 2 3
             var expected = new List<IList<int>>
             {
@@ -369,7 +369,7 @@ namespace Yunly.Learning.Test
             var result = solution.RemoveNthFromEnd(head, position);
 
             //assert
-            
+
             while (result.next != null)
             {
                 Assert.Equal(expected++, result.val);
@@ -380,7 +380,7 @@ namespace Yunly.Learning.Test
 
         [Theory]
         [InlineData("()", true)]
-        public void IsValid(string input, bool expected)        
+        public void IsValid(string input, bool expected)
         {
             //arrange
 
@@ -417,7 +417,7 @@ namespace Yunly.Learning.Test
             var result = solution.GenerateParenthesis(input);
 
             //assert
-            Assert.Equal<IList<string>>(expected, result);            
+            Assert.Equal<IList<string>>(expected, result);
         }
 
 
@@ -492,7 +492,7 @@ namespace Yunly.Learning.Test
 
 
         [Theory]
-        [InlineData(new int[] {1,1,2}, 2, new int[] {1,2 })]
+        [InlineData(new int[] { 1, 1, 2 }, 2, new int[] { 1, 2 })]
         public void RemoveDuplicatesTest(int[] input, int expected, int[] expected1)
         {
             //arrange
@@ -508,8 +508,8 @@ namespace Yunly.Learning.Test
 
         [Theory]
         [InlineData(new int[] { 3, 2, 2, 3 }, 3, 2, new int[] { 2, 2 })]
-        [InlineData(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5, new int[] { 0,1,3,0,4 })]
-        [InlineData(new int[] { 3,3 }, 5, 2, new int[] { 3,3 })]
+        [InlineData(new int[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5, new int[] { 0, 1, 3, 0, 4 })]
+        [InlineData(new int[] { 3, 3 }, 5, 2, new int[] { 3, 3 })]
         public void RemoveElementTest(int[] input, int val, int expected1, int[] expected2)
         {
             //arrange
@@ -524,7 +524,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(-2147483648,2, -2147483648/2)]        
+        [InlineData(-2147483648, 2, -2147483648 / 2)]
         public void DivideTest(int dividend, int divisor, int expected)
         {
             //arrange
@@ -538,9 +538,9 @@ namespace Yunly.Learning.Test
 
 
         [Theory]
-        [InlineData("askrnjtapxodiovimfcvfnouluznhhyjzjcmuvojudpdtknfprawfqrqksgszgbypemkbbvwgkbzxogmiglnwcfgunatuctjihvjktfqdgrcxzpffaudebmapmtjqouaxskilraqautztkebkaeqbqqqflbvbwwyqigbzjrbdkawugzgieykwocbzgxactzubhvcqogvbguxptexxchutmvssuvwpwqsflvwzbtajnyyhewgifadrywluthkpxcukzsmcmombomiuipforihrgtmzcwqcanmahactrqxhdfclwhborlhygvxirqkudzumbyispfaskefhnjxeugcacckvuvpzwllxktsbyuvjyasllrrhxuhbyuxsrmrnacmkyenwyihykzjwsddqxnrxhqrydindmzpkgchemqfwqqsktyaqnupwkgupqjudilpqpyvbpayhqsrksucfqubcaxurgqwrcnhtoevdgvmzpdlizpnpjrskomdxcbogqxaecxjisxhhburakfstykfmykjcnzjexjkzgwjatthunzxxgrredysbjcdwdmcaxnbfjlfegpbtoarwrkauisxrwaqapscoheusrzxxoyqeyjartcnexkvvknxbiaqpgkkxlhuchmghwjarnnvkxrijgflofdenpqkaxgcgtlppupgjccubvekdjxsrayepopsnvwvqjkffbopfslgppssyqkpskwkyncliagbksiptwgyqrgfgzahrmyjxutxhxlsartmmbdfakgsboakpargorsnmnlvlwnnpizbmcjoopgqdgctivbxmtkyhvwutlhjuimikvwzkcrqlvltqoqeidfrablumuficrqonopztiredexvtqadthuvihrwdwffqvvdmnefvwjbaiyvyaythsrpbimeftlvqjacwehtcsufbtabvzxdtouxwibdbpasycwujennwksxftbauyfpoammkqqofsgdvezgiothamefhhidfpsvrhicxaqcsyhpcivnwruzdaemioppejlvqtzntprnpydugahfrbewbkkjbzb", 
-            new string[] { "xactzubhvcqogvbguxptexxchutmv", "hborlhygvxirqkudzumbyispfaske", "uisxrwaqapscoheusrzxxoyqeyjar", "ppupgjccubvekdjxsrayepopsnvwv", "jarnnvkxrijgflofdenpqkaxgcgtl", "cbogqxaecxjisxhhburakfstykfmy", "agbksiptwgyqrgfgzahrmyjxutxhx", "fhnjxeugcacckvuvpzwllxktsbyuv", "rcnhtoevdgvmzpdlizpnpjrskomdx", "kjcnzjexjkzgwjatthunzxxgrredy", "tcnexkvvknxbiaqpgkkxlhuchmghw", "sbjcdwdmcaxnbfjlfegpbtoarwrka", "qjkffbopfslgppssyqkpskwkyncli", "pqpyvbpayhqsrksucfqubcaxurgqw", "yihykzjwsddqxnrxhqrydindmzpkg", "jyasllrrhxuhbyuxsrmrnacmkyenw", "chemqfwqqsktyaqnupwkgupqjudil", "vlwnnpizbmcjoopgqdgctivbxmtky", "rihrgtmzcwqcanmahactrqxhdfclw", "ssuvwpwqsflvwzbtajnyyhewgifad", "lsartmmbdfakgsboakpargorsnmnl", "rywluthkpxcukzsmcmombomiuipfo", "hvwutlhjuimikvwzkcrqlvltqoqei" }, 
-            new int[]{186 })]
+        [InlineData("askrnjtapxodiovimfcvfnouluznhhyjzjcmuvojudpdtknfprawfqrqksgszgbypemkbbvwgkbzxogmiglnwcfgunatuctjihvjktfqdgrcxzpffaudebmapmtjqouaxskilraqautztkebkaeqbqqqflbvbwwyqigbzjrbdkawugzgieykwocbzgxactzubhvcqogvbguxptexxchutmvssuvwpwqsflvwzbtajnyyhewgifadrywluthkpxcukzsmcmombomiuipforihrgtmzcwqcanmahactrqxhdfclwhborlhygvxirqkudzumbyispfaskefhnjxeugcacckvuvpzwllxktsbyuvjyasllrrhxuhbyuxsrmrnacmkyenwyihykzjwsddqxnrxhqrydindmzpkgchemqfwqqsktyaqnupwkgupqjudilpqpyvbpayhqsrksucfqubcaxurgqwrcnhtoevdgvmzpdlizpnpjrskomdxcbogqxaecxjisxhhburakfstykfmykjcnzjexjkzgwjatthunzxxgrredysbjcdwdmcaxnbfjlfegpbtoarwrkauisxrwaqapscoheusrzxxoyqeyjartcnexkvvknxbiaqpgkkxlhuchmghwjarnnvkxrijgflofdenpqkaxgcgtlppupgjccubvekdjxsrayepopsnvwvqjkffbopfslgppssyqkpskwkyncliagbksiptwgyqrgfgzahrmyjxutxhxlsartmmbdfakgsboakpargorsnmnlvlwnnpizbmcjoopgqdgctivbxmtkyhvwutlhjuimikvwzkcrqlvltqoqeidfrablumuficrqonopztiredexvtqadthuvihrwdwffqvvdmnefvwjbaiyvyaythsrpbimeftlvqjacwehtcsufbtabvzxdtouxwibdbpasycwujennwksxftbauyfpoammkqqofsgdvezgiothamefhhidfpsvrhicxaqcsyhpcivnwruzdaemioppejlvqtzntprnpydugahfrbewbkkjbzb",
+            new string[] { "xactzubhvcqogvbguxptexxchutmv", "hborlhygvxirqkudzumbyispfaske", "uisxrwaqapscoheusrzxxoyqeyjar", "ppupgjccubvekdjxsrayepopsnvwv", "jarnnvkxrijgflofdenpqkaxgcgtl", "cbogqxaecxjisxhhburakfstykfmy", "agbksiptwgyqrgfgzahrmyjxutxhx", "fhnjxeugcacckvuvpzwllxktsbyuv", "rcnhtoevdgvmzpdlizpnpjrskomdx", "kjcnzjexjkzgwjatthunzxxgrredy", "tcnexkvvknxbiaqpgkkxlhuchmghw", "sbjcdwdmcaxnbfjlfegpbtoarwrka", "qjkffbopfslgppssyqkpskwkyncli", "pqpyvbpayhqsrksucfqubcaxurgqw", "yihykzjwsddqxnrxhqrydindmzpkg", "jyasllrrhxuhbyuxsrmrnacmkyenw", "chemqfwqqsktyaqnupwkgupqjudil", "vlwnnpizbmcjoopgqdgctivbxmtky", "rihrgtmzcwqcanmahactrqxhdfclw", "ssuvwpwqsflvwzbtajnyyhewgifad", "lsartmmbdfakgsboakpargorsnmnl", "rywluthkpxcukzsmcmombomiuipfo", "hvwutlhjuimikvwzkcrqlvltqoqei" },
+            new int[] { 186 })]
         public void FindSubstringTest(string s, string[] words, int[] expected)
         {
             //act
@@ -551,7 +551,7 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData(new int[] {1,3,2 }, new int[] {2,1,3 })]
+        [InlineData(new int[] { 1, 3, 2 }, new int[] { 2, 1, 3 })]
         public void NextPermutationTest(int[] input, int[] expected)
         {
             //arrange
@@ -564,8 +564,9 @@ namespace Yunly.Learning.Test
         }
 
         [Theory]
-        [InlineData("(()", 2)]
-        [InlineData(")()())",4)]
+        //[InlineData("(()", 2)]
+        [InlineData(")()())", 4)]
+        //[InlineData("())()",2)]
         public void LongestValidParenthesesTest(string input, int expected)
         {
             //arrange
@@ -576,6 +577,22 @@ namespace Yunly.Learning.Test
             //
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new int[] { 5, 7, 7, 8, 8, 10 }, 8, new int[] { 3, 4 })]
+        public void SearchRangeTest(int[] nums, int target, int[] expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.SearchRange(nums, target);
+
+            //assert
+            Assert.Equal<int[]>(expected, result);
+
+        }
+
+
     }
 }
 
