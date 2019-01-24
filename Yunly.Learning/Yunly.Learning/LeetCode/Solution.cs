@@ -1688,15 +1688,37 @@ namespace Yunly.Learning.LeetCode
         /// <param name="target"></param>
         /// <returns></returns>
         public int[] SearchRange(int[] nums, int target)
-        {            
+        {
+            //var result = new int[] { -1, -1 };
+            //if (nums == null || nums.Length == 0) return result;
 
 
-            if (nums == null || nums.Length == 0) return new int[] { -1, -1 };
-          
-            if (nums.Length == 1)
-            {
-                return nums[0] == target ? new int[] { 0, 0 } : new int[] { -1, -1 };
-            }
+            //for (var i = 0; i < nums.Length; i++)
+            //{
+            //    if (nums[i] == target)
+            //    {
+            //        result[0] = i;
+            //        break;
+            //    }
+            //}
+
+            //if (result[0] == -1) return result;
+
+            //for (var j = nums.Length - 1; j >= 0; j--)
+            //{
+            //    if (nums[j] == target)
+            //    {
+            //        result[1] = j;
+            //        break;
+            //    }
+            //}
+
+            //return result;
+
+
+            var result = new int[] { -1, -1 };
+            if (nums == null || nums.Length == 0) return result;
+
 
             var left = 0;
             var right = nums.Length - 1;
@@ -1705,28 +1727,20 @@ namespace Yunly.Learning.LeetCode
             {
                 var middle = (left + right) / 2;
 
-                if (target == nums[middle])
-                {
-                    if (middle-1>=0  && nums[middle - 1] == target) return new int[] { middle - 1, middle };
-
-                    if (middle + 1 < nums.Length && nums[middle + 1] == target) return new int[] { middle, middle + 1 };
-
-                    return new int[] { middle, middle };
-                }
-
-                if (target > nums[middle])
-                {
-                    left = middle + 1;
-                }
-                else
-                {
-                    right = middle - 1;
-                }
+                if (nums[middle] > target || (nums[middle] == target)) right = middle;
+                else left = middle + 1;
             }
 
+            if (left <= right) { result[0] = left; result[1] = left; }
+            else return result;
 
-            return new int[] { -1, -1 };
 
+            for (var i = left; i < nums.Length - 1; i++)
+            {
+                if (nums[i] != nums[i + 1]) result[1] = i;
+            }
+
+            return result;
 
         }
     }
