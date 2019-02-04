@@ -592,7 +592,58 @@ namespace Yunly.Learning.Test
 
         }
 
+        [Theory]
+        [InlineData(1, 2, new string[] { "abb", "bab", "bba" })]
+        public void StrWithout3a3bTest(int A, int B, string[] expected)
+        {
 
+            //act
+            var result = solution.StrWithout3a3b(A, B);
+
+            //assert
+            Assert.Contains<string>(result, expected);
+        }
+
+
+        [Theory]
+        [InlineData(new int[] {1,2,0}, 3)]
+        public void FirstMissingPositiveTest(int[] input, int expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.FirstMissingPositive(input);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(new int[] { 4,2,3 }, 1)]
+        public void TrapTest(int[] input, int expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.Trap2(input);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
+
+
+        [Theory]
+        [InlineData("999", "999", "998001")]
+        public void MultiplyTest(string input1, string input2, string expected)
+        {
+            //arrange
+
+            //act
+            var result = solution.Multiply(input1, input2);
+
+            //assert
+            Assert.Equal(expected, result);
+        }
     }
 }
 

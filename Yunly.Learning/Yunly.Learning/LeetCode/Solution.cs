@@ -390,24 +390,19 @@ namespace Yunly.Learning.LeetCode
         public bool IsMatch(string s, string p)
         {
 
-            if (Regex.IsMatch(p, @"^[a-z]$")) return s == p;
-            return Regex.IsMatch(s, p);
+            //if (Regex.IsMatch(p, @"^[a-z]$")) return s == p;
+            //return Regex.IsMatch(s, p);
 
 
-            if (string.IsNullOrEmpty(p))
-                return string.IsNullOrEmpty(p);
+            if (p == "") return s == "";
 
-            bool first_match = (!string.IsNullOrEmpty(s) &&
-                (p[0] == s[0] || p[0] == '.'));
+            bool firstMatch = (s != "" &&
+                (s[0] == p[0] || p[0] == '?'));
 
             if (p.Length >= 2 && p[1] == '*')
-            {
-                return (IsMatch(s, p.Substring(2)) ||
-                    (first_match && IsMatch(s.Substring(1), p)));
-            }
+                return IsMatch(s, p.Substring(2)) || firstMatch && IsMatch(s.Substring(1), p);
             else
-                return first_match && IsMatch(s.Substring(1), p.Substring(1));
-
+                return firstMatch && IsMatch(s.Substring(1), p.Substring(1));
         }
 
         /// <summary>
@@ -1591,7 +1586,7 @@ namespace Yunly.Learning.LeetCode
             while (m < n)
             {
                 (nums[m], nums[n]) = (nums[n], nums[m]);
-                m++;n--;
+                m++; n--;
             }
         }
 
@@ -1625,7 +1620,7 @@ namespace Yunly.Learning.LeetCode
                 }
             }
 
-            return max;          
+            return max;
         }
 
         /// <summary>
@@ -1673,7 +1668,7 @@ namespace Yunly.Learning.LeetCode
                 {
                     for (var i = nums.Length - 1; i >= 0; i--)
                         if (nums[i] == target) return i;
-                }             
+                }
             }
 
             return -1;
@@ -1743,6 +1738,294 @@ namespace Yunly.Learning.LeetCode
             return result;
 
         }
+
+
+        public string StrWithout3a3b(int A, int B)
+        {
+            if (A == 0 && B == 0) return "";
+
+            if (A == 0) return new string('b', B);
+
+            if (B == 0) return new string('a', A);
+
+            var s = "";
+
+            if (A >= B)
+            {
+                var diff = A - B;
+                var count = B;
+                while (count > 0)
+                {
+                    if (count >= 2) { s += "aabb"; count -= 2; continue; }
+
+                    if (count == 1) { s += "ab"; count--; continue; }
+
+                }
+
+                s += new string('a', diff);
+            }
+            else
+            {
+                var diff = B - A;
+                var count = A;
+
+                while (count > 0)
+                {
+                    if (count >= 2) { s += "bbaa"; count -= 2; continue; }
+
+                    if (count == 1) { s += "ba"; count--; continue; }
+                }
+
+                s += new string('b', diff);
+            }
+
+
+            return s;
+
+        }
+
+
+        /// <summary>
+        /// 37. Sudoku Solver
+        /// https://leetcode.com/problems/sudoku-solver/
+        /// </summary>
+        /// <param name="board"></param>
+        public void SolveSudoku(char[][] board)
+        {
+
+            solve(board);
+        }
+
+        private bool solve(char[][] board)
+        {
+            for (var i = 0; i < 9; i++)
+                for (var j = 0; j < 9; j++)
+                {
+                    if (board[i][j] == '.')
+                    {
+                        for (var k = '1'; k <= '9'; k++)
+                        {
+                            if (isValid(board, i, j, k))
+                            {
+                                board[i][j] = k;
+
+                                if (solve(board))
+                                    return true;
+
+                                board[i][j] = '.';
+                            }
+                        }
+                        return false;
+                    }
+                }
+
+            return true;
+        }
+
+        private bool isValid(char[][] board, int row, int column, char num)
+        {
+            for (var i = 0; i < board.Length; i++)
+            {
+                if (board[row][i] == num) return false;
+                if (board[i][column] == num) return false;
+            }
+
+            for (var i = row / 3 * 3; i < row / 3 * 3 + 3; i++)
+                for (var j = column / 3 * 3; j < column / 3 * 3 + 3; j++)
+                    if (board[i][j] == num) return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// 41. First Missing Positive
+        /// https://leetcode.com/problems/first-missing-positive/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public int FirstMissingPositive(int[] nums)
+        {
+            if (nums == null || nums.Length == 0) return 1;
+
+            for (var i = 0; i < nums.Length; i++)
+            {
+                while (nums[i] > 0 && nums[i] < nums.Length && nums[i] != nums[nums[i] - 1])
+                    swap(nums, i, nums[i] - 1);
+            }
+
+
+            for (var i = 0; i < nums.Length; i++)
+                if (nums[i] != i + 1)
+                    return i + 1;
+
+            return nums.Length + 1;
+        }
+
+        private void swap(int[] nums, int i, int j)
+        {
+            (nums[i], nums[j]) = (nums[j], nums[i]);
+        }
+
+        /// <summary>
+        /// 42. Trapping Rain Water
+        /// https://leetcode.com/problems/trapping-rain-water/
+        /// </summary>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public int Trap(int[] height)
+        {
+            //var total = 0;
+            //var temp = height.AsEnumerable();
+            //while (true)
+            //{
+
+            //    temp = temp.SkipWhile(d => d == 0).Reverse().SkipWhile(d => d == 0);
+            //    if (temp.Count(d => d == 0) == 0) break;
+            //    total += temp.Count(d => d == 0);
+
+            //    temp = temp.Select(d => d > 0 ? d-1 : 0);
+
+            //}
+
+            //return total;
+
+
+            if (height == null || height.Length <= 1) return 0;
+
+
+            var total = 0;
+            while (true)
+            {
+                int count = 0;
+                bool startFlag = false;
+                for (var i = 0; i <= height.Length; i++)
+                {
+
+                    if (height[i] == 0) total++;
+                    else
+                    {
+                        height[i]--;
+                        count++;
+                    }
+                }
+                if (count <= 1) break;
+            }
+
+            return total;
+        }
+
+        public int Trap1(int[] height)
+        {
+            if (height == null || height.Length <= 1) return 0;
+
+            int total = 0;
+            var stack = new Stack<int>();
+
+            for (var i = 0; i < height.Length; i++)
+            {
+                while (stack.Count > 0 && height[i] > height[stack.Peek()])
+                {
+                    var top = stack.Pop();
+                    if (stack.Count == 0)
+                        break;
+
+                    var distance = i - stack.Peek() - 1;
+                    var temp = Math.Min(height[i], height[stack.Peek()]) - height[top];
+                    total += distance * temp;
+                }
+
+                stack.Push(i);
+            }
+
+            return total;
+
+
+        }
+
+        public int Trap2(int[] height)
+        {
+            if (height == null || height.Length <= 1) return 0;
+
+            var left = 0;
+            var right = height.Length - 1;
+
+            var left_max = 0;
+            var right_max = 0;
+
+            var total = 0;
+            while (left < right)
+            {
+                if (height[left] < height[right])
+                {
+                    if (height[left] >= left_max)
+                        left_max = height[left];
+                    else
+                        total += left_max - height[left];
+                    left++;
+                }
+                else
+                {
+                    if (height[right] >= right_max)
+                        right_max = height[right];
+                    else
+                        total += right_max - height[right];
+                    right--;
+                }
+            }
+
+            return total;
+        }
+
+
+
+        /// <summary>
+        /// 43. Multiply Strings
+        /// https://leetcode.com/problems/multiply-strings/
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        public string Multiply(string num1, string num2)
+        {
+            if (num1 == "0" || num2 == "0") return "0";
+
+            var result = new int[num1.Length + num2.Length];
+
+            for(var j=num1.Length-1;j>=0;j--)
+                for (var i = num2.Length-1; i >= 0; i--)
+                {
+                    var mul = (num1[j] - '0') * (num2[i] - '0');
+
+                    mul += result[i + j + 1] + result[i + j] * 10;
+
+                    result[i + j + 1] = mul % 10;
+                    result[i + j] = mul / 10;
+                }
+
+
+         
+            var product = "";
+            for (var i = result.Length - 1; i >= 0; i--)
+            {
+
+
+                product = result[i] + product;
+            }
+            return product.TrimStart('0');
+
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

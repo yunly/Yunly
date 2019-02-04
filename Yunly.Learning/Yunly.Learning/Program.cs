@@ -158,18 +158,22 @@ namespace Yunly.Learning
     {
 
 
-        
+
+        static void printArray(char[][] array)
+        {
+            foreach (var line in array)
+                Console.WriteLine(string.Join(' ', line));
+
+            Console.WriteLine();
+        }
                    
         static void Main(string[] args)
         {
-            var s = ")))))()(((((";
 
-            var result = s.TrimStart(')').TrimEnd('(');
+            var i = '9';
+            var j = '8';
 
-
-            Console.WriteLine(result);
-
-      
+            Console.WriteLine(i -0x30+ j-0x30);
 
             Console.WriteLine(DateTime.Now);
             Console.ReadKey();
